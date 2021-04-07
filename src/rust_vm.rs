@@ -1,5 +1,7 @@
 use core::fmt;
 
+pub static INSTRUCTION_BYTES:usize = 4;
+
 #[derive(Clone, PartialEq, Eq)]
 struct VMstate {
     ip:usize,
@@ -25,6 +27,15 @@ pub struct Instruction {
     data:u16
 }
 
+impl Instruction {
+    pub fn size() -> usize {
+        let ins:&Instruction =  &Instruction{data:0, opcode:0};
+        std::mem::size_of_val(ins)
+    }
+
+
+}
+
 impl fmt::Display for Instruction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "(OC: {:#06X}, DATA: {:#06X})", self.opcode, self.data)
@@ -34,7 +45,7 @@ impl fmt::Display for Instruction {
 impl RustVM {
     pub fn new() -> RustVM {
         RustVM {state: VMstate {
-            ip: 0x00FF,
+            ip: 0x0000,
             stack: Vec::new(),
             ram: [19; 65536]
         }}
@@ -42,7 +53,7 @@ impl RustVM {
 
     pub fn clock(&mut self) {
         let mut ins = self.next_instruction();
-        self.state.ip += 1;
+        self.state.ip += 2;
         let opcode = ins.opcode;
         let data = ins.data;
         match opcode {
@@ -55,6 +66,14 @@ impl RustVM {
             opcode: self.state.ram[self.state.ip],
             data: self.state.ram[self.state.ip + 1]
         }
+    }
+
+    pub fn get_ip(&mut self) -> usize {
+        return self.state.ip;
+    }
+
+    pub fn get_instruction_length() -> usize {
+        Instruction::size()
     }
 
 }
