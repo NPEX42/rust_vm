@@ -5,7 +5,7 @@ authors = ["npex42 <npex42@gmail.com>"]
 edition = "2018"
 
 description = "A Simple Rust Virtual Machine"
-license = "GPL 2.0"
+license = "AGPL-3.0-or-later"
 documentation = "https://github.com/NPEX42/rust_vm"
 homepage = "https://github.com/NPEX42/rust_vm"
 repository = "https://github.com/NPEX42/rust_vm"
