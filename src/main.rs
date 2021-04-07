@@ -31,9 +31,7 @@ fn test_ip_change() {
 
 #[cfg(test)]
 #[test]
-fn test_instruction_length() {
-    let mut vm = rust_vm::RustVM::new();
-    vm.clock();
+fn test_instruction_length() { //Instruction length may be critical to several part in the future 
     assert_eq!(rust_vm::INSTRUCTION_BYTES, RustVM::get_instruction_length())
 }
 
