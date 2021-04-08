@@ -1,6 +1,7 @@
 use core::fmt;
 
 pub static INSTRUCTION_BYTES:usize = 4;
+pub static INSTRUCTION_WORDS:usize = 2;
 
 #[derive(Clone, PartialEq, Eq)]
 struct VMstate {
@@ -52,12 +53,12 @@ impl RustVM {
     }
 
     pub fn clock(&mut self) {
-        let mut ins = self.next_instruction();
-        self.state.ip += 2;
+        let ins = self.next_instruction();
+        self.state.ip += INSTRUCTION_WORDS;
         let opcode = ins.opcode;
         let data = ins.data;
         match opcode {
-            _ => { println!("Illegal Instruction At {:#06X}: {}", self.state.ip - 1, ins)}
+            _ => { println!("Illegal Instruction At {:#06X}: {}", self.state.ip - INSTRUCTION_WORDS, ins)}
         }
     }
 
